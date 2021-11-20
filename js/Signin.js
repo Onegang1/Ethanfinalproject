@@ -1,11 +1,11 @@
 var firebaseConfig = {
-  apiKey: 'AIzaSyAvgKm42YqxQUBZBvSW4ja6MuI84uO2y44',
-  authDomain: 'ethancsci225.firebaseapp.com',
-  projectId: 'ethancsci225',
-  storageBucket: 'ethancsci225.appspot.com',
-  messagingSenderId: '393850707109',
-  appId: '1:393850707109:web:0649917dd9037550d2414c',
-  measurementId: 'G-21TV94DY8P',
+  apiKey: "AIzaSyC9Ji0HS-uvb6_NlS5G4lraXnFOzFwSWLo",
+  authDomain: "ethanfinalproject.firebaseapp.com",
+  projectId: "ethanfinalproject",
+  storageBucket: "ethanfinalproject.appspot.com",
+  messagingSenderId: "415937394300",
+  appId: "1:415937394300:web:a3f751c1be0fd67a1c3bf9",
+  measurementId: "G-NMEZCLHRKQ"
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
