@@ -71,7 +71,7 @@ body {
 }
 
 table {
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
 }
@@ -102,12 +102,12 @@ table th {
   padding: 30px;
 }
 
-input[type="text"],
-input[type="date"],
-input[type="email"],
-input[type="number"],
+input[type='text'],
+input[type='date'],
+input[type='email'],
+input[type='number'],
 select,
-input[type="password"] {
+input[type='password'] {
   margin: 0 auto;
   display: inline-block;
   text-align: center;
@@ -122,9 +122,9 @@ input[type="password"] {
   border-style: inset;
 }
 
-input[type="submit"],
-input[type="button"],
-input[type="reset"] {
+input[type='submit'],
+input[type='button'],
+input[type='reset'] {
   margin: 20px auto;
   display: inline-block;
   text-align: center;
