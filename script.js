@@ -37,7 +37,8 @@ $('#loginpage').submit(function (e) {
       var errorMessage = error.message;
       console.log(errorMessage);
     });
-  $('#newacc').click(function (e) {
-    window.location.href = 'Signup.html';
-  });
+});
+$('#newacc').click(function (e) {
+  window.location.href = 'Signup.html';
+  console.log('hi');
 });

@@ -1,57 +1,74 @@
 <html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
+    <title>Welcome to QR Sample Survey</title>
+    <!-- Jquery library   ---->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+      crossorigin="anonymous"
+    ></script>
+  </head>
 
-<head>
-	<link rel="stylesheet" type="text/css" href="css/styles.css" />
-	<title>Welcome to QR Sample Survey</title>
-	<!-- Jquery library   ---->
-	<script src="https://code.jquery.com/jquery-3.5.1.js"
-		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous">
-	</script>
+  <body>
+    <div class="message">
+      <div class="forum-title">
+        <h1>New Post</h1>
+      </div>
 
-</head>
+      <form class="postContent">
+        <input
+          type="text"
+          id="postTitle"
+          name="postTitle"
+          placeholder="Title"
+        />
+        <textarea
+          name="postBody"
+          cols="40"
+          rows="10"
+          id="postBody"
+          placeholder="Text(Optional)"
+        ></textarea>
 
-<body>
-	<div class="message">
-		<div class="forum-title">
-			<h1>Forum page</h1>
+        <p><input type="submit" value="submit" /></p>
+      </form>
+    </div>
+
+    <div class="Posts" id="posts">
+			<div class="message" id="message"> <div class="forum-title"> <h1>Posts</h1> 
+				<div class="message1" id="message1"></div>
+				<div class="comment1">
+					<form class="comment-form1">
+					  <input type="radio" name="choice" value="A">
+					  <input type="text" id="comment1" name="commentdata" placeholder="Comment" />
+					  <p><input type="button" id="commentbutton1" value="Add comment" /></p>
+					</form>
+				</div>
+				<div class="message2" id="message2"></div>
+				<div class="comment2">
+				<form class="comment-form2">
+					<input type="radio" name="choice" value="A">
+					<input type="text" id="comment2" name="commentdata" placeholder="Comment" />
+					<p><input type="submit" id="commentbutton2" value="Add comment" /></p>
+				</form>
+			</div>
+				<div class="message3" id="message3"></div>
+		 </div>
 		</div>
-		
+   
+    <p><input type="button" id="commentbutton" value="Add comment" /></p>
+    ;
 
-		<form class="postContent" >
-		
-		  <input type="text" id="postTitle" name="postTitle" placeholder="Title" />
-			<textarea name="postBody" cols="40" rows="10" id="postBody" placeholder="Text(Optional)"></textarea>
-
-			<p><input type="submit" value="submit" /></p>
-                
-		</form>
-
-	</div>
-	<div class="containter">
-	<div class="forum-post">
-	</div>
-	</div>
-
-
-	
-
-
-	<!-- The core Firebase JS SDK is always required and must be listed first -->
-	<script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-firestore.js"></script>
-	<!-- TODO: Add SDKs for Firebase products that you want to use
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-firestore.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
-	<script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-analytics.js"></script>
 
+    <!--  Save and display data on real time  -->
 
-
-
-	<!--  Save and display data on real time  -->
-
-	<script src="js/forums.js"></script>
-
-
-
-</body>
-
+    <script src="js/forums.js"></script>
+  </body>
 </html>

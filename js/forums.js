@@ -27,35 +27,73 @@ $(".postcontent input[type='submit']").click(function (e) {
 // update the result in table
 firebase
   .firestore()
-  .collection('SurveyResults')
+  .collection('postCollection')
   .onSnapshot((querySnapshot) => {
     console.log(querySnapshot.size);
 
-    var answer1 = 0;
-    var answer2 = 0;
-    var answer3 = 0;
-    var answer4 = 0;
+    var i = 1;
     querySnapshot.forEach((doc) => {
-      switch (doc.data().choice) {
-        case 'A':
-          answer1++;
-          break;
-        case 'B':
-          answer2++;
-          break;
-        case 'C':
-          answer3++;
-          break;
-        case 'D':
-          answer4++;
-          break;
-      }
       console.log(doc.data());
-      console.log(doc.data().choice);
-      console.log(doc.data().comm);
+      console.log(doc.data().postBody);
+      console.log(doc.data().postTitle);
+      var postInformation =
+        '<div class= "postTitle">' + doc.data().postTitle + '</div>';
+      postInformation +=
+        '<div class= "postBody">' + doc.data().postBody + '</div>';
+      // postInformation += '<div class= "comment' + i + '">';
+      // postInformation += '<form class ="comment-form' + i + '">';
+      // postInformation +=
+      //   '<input type="radio" name="choice" value="' +
+      //   i +
+      //   '">' +
+      //   'Add a comment check if yes' +
+      //   '<input type="text" id="comment' +
+      //   i +
+      //   '"name="commentdata" placeholder="Comment" />' +
+      //   '<p><input type="button" id="commentbutton' +
+      //   i +
+      //   '" value="Add comment" /></p>';
+      //postInformation += '</div>';
+      //postInformation += '</form>';
+      var final = document.getElementById('message' + i + '');
+      final.innerHTML = postInformation;
+      i++;
     });
-    $('#ans1').text(answer1);
-    $('#ans2').text(answer2);
-    $('#ans3').text(answer3);
-    $('#ans4').text(answer4);
   });
+
+$(".comment-form1 input[type='button']").click(function (e) {
+  e.preventDefault();
+
+  // get the value of the form using serializeArray method
+  var inputdata = $('.comment-form1').serializeArray();
+  var inputJson = {};
+  inputdata.forEach((data) => {
+    inputJson[data.name] = data.value;
+  });
+  console.log(inputJson);
+  firebase.firestore().collection('comments').add(inputJson);
+});
+$(".comment-form2 input[type='button']").click(function (e) {
+  e.preventDefault();
+
+  // get the value of the form using serializeArray method
+  var inputdata = $('.comment-form2').serializeArray();
+  var inputJson = {};
+  inputdata.forEach((data) => {
+    inputJson[data.name] = data.value;
+  });
+  console.log(inputJson);
+  firebase.firestore().collection('comments').add(inputJson);
+});
+$(".comment-form3 input[type='button']").click(function (e) {
+  e.preventDefault();
+
+  // get the value of the form using serializeArray method
+  var inputdata = $('.comment-form3').serializeArray();
+  var inputJson = {};
+  inputdata.forEach((data) => {
+    inputJson[data.name] = data.value;
+  });
+  console.log(inputJson);
+  firebase.firestore().collection('comments').add(inputJson);
+});
