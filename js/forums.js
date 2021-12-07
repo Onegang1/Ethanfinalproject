@@ -22,20 +22,36 @@ $(".postcontent input[type='submit']").click(function (e) {
   inputdata.forEach((data) => {
     inputJson[data.name] = data.value;
   });
+  inputJson["num"]=0;
+  inputJson["commentlist"]=["a","b"];
   firebase.firestore().collection('postCollection').add(inputJson);
 });
 // update the result in table
+
+firebase
+  .firestore()
+  .collection('postCollection')
+  .doc('4qaYfThNTGm1gBXPW63Z')
+  .update({ Comment: 'test' });
+
+var id = [];
 firebase
   .firestore()
   .collection('postCollection')
   .onSnapshot((querySnapshot) => {
-    console.log(querySnapshot.size);
+    //console.log(querySnapshot.size);
 
     var i = 1;
     querySnapshot.forEach((doc) => {
-      console.log(doc.data());
-      console.log(doc.data().postBody);
-      console.log(doc.data().postTitle);
+      console.log(doc.id);
+      //console.log(doc.data().postBody);
+      //console.log(doc.data().postTitle);
+      for(int i = 0; i < doc.data().num; i++){
+        console.log(doc.data().comment)
+      }
+      id[i - 1] = doc.id;
+      console.log(id);
+
       var postInformation =
         '<div class= "postTitle">' + doc.data().postTitle + '</div>';
       postInformation +=
@@ -70,8 +86,12 @@ $(".comment-form1 input[type='button']").click(function (e) {
   inputdata.forEach((data) => {
     inputJson[data.name] = data.value;
   });
+  var thevalue = inputJson["commentdata"];
+  var inputJson={comment2:thevalue };
+
   console.log(inputJson);
-  firebase.firestore().collection('comments').add(inputJson);
+  var doc = id[0];
+  firebase.firestore().collection('postCollection').doc(doc).update(inputJson);
 });
 $(".comment-form2 input[type='button']").click(function (e) {
   e.preventDefault();

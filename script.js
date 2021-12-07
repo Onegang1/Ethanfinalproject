@@ -22,7 +22,7 @@ $('#loginpage').submit(function (e) {
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then((success) => {
-      window.location.href = 'Surveyresult.html';
+      window.location.href = 'forums.html';
       //user.updateProfile({ displayName: "Not sure" });
       if (user != null) {
         name = user.displayName;
