@@ -1,3 +1,5 @@
+
+   
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 var firebaseConfig = {
@@ -22,7 +24,7 @@ $(".postcontent input[type='submit']").click(function (e) {
   inputdata.forEach((data) => {
     inputJson[data.name] = data.value;
   });
-  
+  inputJson["commentlist"]=[];
   firebase.firestore().collection('postCollection').add(inputJson);
 });
 // update the result in table
@@ -30,12 +32,12 @@ $(".postcontent input[type='submit']").click(function (e) {
 
 
 var id = [];
-var postcomment=[];
+var postcomment = [];
 firebase
   .firestore()
   .collection('postCollection')
   .onSnapshot((querySnapshot) => {
-    //console.log(querySnapshot.size);
+    
 
     var i = 1;
     querySnapshot.forEach((doc) => {
@@ -44,29 +46,18 @@ firebase
       console.log(doc.data().commentlist);
     
       id[i - 1] = doc.id;
+      
       postcomment.push(doc.data().commentlist);
-  //    console.log(id);
+      console.log(postcomment);
+      
+ 
 
       var postInformation =
         '<div class= "postTitle">' +'<h1>' +doc.data().postTitle +'</h1>'+ '</div>';
       postInformation +=
         '<div class= "postBody">' + doc.data().postBody + '</div>';
       
-      // postInformation += '<div class= "comment' + i + '">';
-      // postInformation += '<form class ="comment-form' + i + '">';
-      // postInformation +=
-      //   '<input type="radio" name="choice" value="' +
-      //   i +
-      //   '">' +
-      //   'Add a comment check if yes' +
-      //   '<input type="text" id="comment' +
-      //   i +
-      //   '"name="commentdata" placeholder="Comment" />' +
-      //   '<p><input type="button" id="commentbutton' +
-      //   i +
-      //   '" value="Add comment" /></p>';
-      //postInformation += '</div>';
-      //postInformation += '</form>';
+      
       document.getElementById("comment-form"+i+"").style.visibility = "visible";
       document.getElementById("main-comment"+i+"").style.visibility = "visible";
       document.getElementById("message"+i+"").style.visibility = "visible";
@@ -95,10 +86,10 @@ $(".comment-form1 input[type='button']").click(function (e) {
   });
   
   var thevalue = inputJson["commentdata"];
-
+  
   postcomment[0].push(thevalue);
   var inputJson={commentlist:postcomment[0]};
-
+  
   console.log(inputJson);
   var doc = id[0];
   firebase.firestore().collection('postCollection').doc(doc).update(inputJson);
@@ -115,10 +106,10 @@ $(".comment-form2 input[type='button']").click(function (e) {
   });
   
   var thevalue = inputJson["commentdata"];
-
+  
   postcomment[0].push(thevalue);
   var inputJson={commentlist:postcomment[0]};
-
+  
   console.log(inputJson);
   var doc = id[1];
   firebase.firestore().collection('postCollection').doc(doc).update(inputJson);
@@ -135,10 +126,10 @@ $(".comment-form3 input[type='button']").click(function (e) {
   });
   
   var thevalue = inputJson["commentdata"];
-
+  
   postcomment[0].push(thevalue);
   var inputJson={commentlist:postcomment[0]};
-
+  
   console.log(inputJson);
   var doc = id[2];
   firebase.firestore().collection('postCollection').doc(doc).update(inputJson);
