@@ -43,8 +43,9 @@ firebase
     
 
     var i = 1;
+    var temp1 = 0;
     querySnapshot.forEach((doc) => {
-      
+      temp1++;
       // console.log(doc.id);
       // console.log(doc.data().postBody);
       // console.log(doc.data().commentlist);
@@ -81,9 +82,16 @@ firebase
       final = document.getElementById('main-comment' + i + '');
       final.innerHTML = commentInformation;
       i++;
-      num = postcomment[doc.data().number] + 1;
+      
+      
+        num ++;
+     
+      
+      
       console.log(postcomment[doc.data().number]);
     });
+    temp = 0;
+    num = 0;
   });
   
 $(".comment-form1 input[type='button']").click(function (e) {
