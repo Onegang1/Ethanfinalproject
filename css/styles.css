@@ -1,17 +1,86 @@
 body {
-  background: #eceff1;
-  color: rgba(0, 0, 0, 0.87);
+  background-color: lightblue;
+  color: #FEFEFE;
   font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14;
   margin: 0;
   padding: 0;
 }
 
-.message {
-  background: white;
-  max-width: 80%;
-  margin: 100px auto 16px;
-  padding: 32px 24px;
+
+.message-Posts{
+  background: rgb(145, 100, 100);
+  max-width: 100%;
+  margin: 20px;
+  padding: 20px;
   border-radius: 3px;
+}
+
+.message,
+.message1,
+.message2,
+.message3,
+.message4,
+.message5,
+.message6,
+.message7,
+.message8,
+.message9,
+.message10,
+.message11,
+.message12,
+.message13,
+.message14,
+.message15,
+.message16,
+.message17,
+.message18,
+.message19,
+.message20,
+
+.message21 {
+  background: rgb(145, 50, 50);
+  max-width: 95%;
+  margin: 100px auto 16px;
+  padding: 32px 2px;
+  border-radius: 3px;
+}
+.comment1,
+.comment2,
+.comment3,
+.comment4,
+.comment5,
+.comment6,
+.comment7,
+.comment8,
+.comment9,
+.comment10,
+.comment11,
+.comment12,
+.comment13,
+.comment14,
+.comment15,
+.comment16,
+.comment17,
+.comment18,
+.comment19,
+.comment20,
+.comment21
+
+ {
+  
+  background: rgb(145, 50, 50);
+  max-width: 85%;
+  margin: 10px auto 16px;
+  padding: 32px 2px;
+  border-radius: 3px;
+}
+.comment-post{
+  background: rgb(145, 50, 50);
+  max-width: 85%;
+  margin: 10px auto 16px;
+  padding: 32px 2px;
+  
 }
 
 .message h2 {
@@ -21,11 +90,13 @@ body {
   margin: 5px 0 8px;
 }
 
-.message h1 {
-  font-size: 22px;
+h1 {
+  font-size: 16px;
   font-weight: 300;
   color: rgba(0, 0, 0, 0.6);
-  margin: 0 0 16px;
+  padding: 5px;
+    border-radius: 5px;
+    margin:4px;
 }
 
 .message p {
@@ -107,12 +178,27 @@ input[type='date'],
 input[type='email'],
 input[type='number'],
 select,
+
 input[type='password'] {
   margin: 0 auto;
   display: inline-block;
   text-align: center;
-  background-color: #f2f2f2;
-  text-transform: uppercase;
+  background-color: white;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.87);
+  padding: 16px;
+  min-width: 60%;
+  border-radius: 4px;
+  border-width: 0px 1px 1px 0px;
+  border-style: inset;
+}
+#postBody
+{
+  margin: 0 auto;
+  display: inline-block;
+  text-align: center;
+  background-color: white;
+  
   text-decoration: none;
   color: rgba(0, 0, 0, 0.87);
   padding: 16px;
@@ -121,6 +207,77 @@ input[type='password'] {
   border-width: 0px 1px 1px 0px;
   border-style: inset;
 }
+
+.comment1,
+.comment2,
+.comment3,
+.comment4,
+.comment5,
+.comment6,
+.comment7,
+.comment8,
+.comment9,
+.comment10,
+.comment11,
+.comment12,
+.comment13,
+.comment14,
+.comment15,
+.comment16,
+.comment17,
+.comment18,
+.comment19,
+.comment20,
+.comment21{
+  visibility: hidden;
+}
+.message1,
+.message2,
+.message3,
+.message4,
+.message5,
+.message6,
+.message7,
+.message8,
+.message9,
+.message10,
+.message11,
+.message12,
+.message13,
+.message14,
+.message15,
+.message16,
+.message17,
+.message18,
+.message19,
+.message20,
+.message21{
+  visibility: hidden;
+}
+.comment-form1,
+.comment-form2,
+.comment-form3,
+.comment-form4,
+.comment-form5,
+.comment-form6,
+.comment-form7,
+.comment-form8,
+.comment-form9,
+.comment-form10,
+.comment-form11,
+.comment-form12,
+.comment-form13,
+.comment-form14,
+.comment-form15,
+.comment-form16,
+.comment-form17,
+.comment-form18,
+.comment-form19,
+.comment-form20,
+.comment-form21{
+  visibility: hidden;
+}
+
 
 input[type='submit'],
 input[type='button'],
@@ -133,7 +290,7 @@ input[type='reset'] {
   text-decoration: none;
   color: white;
   padding: 16px;
-  min-width: 10%;
+  min-width: 25%;
   border-radius: 4px;
 }
 

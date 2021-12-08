@@ -29,7 +29,7 @@ $('#signup-form').submit(function (e) {
       // ...
 
       console.log('You are signed up');
-      window.location.href = 'Login.html';
+      window.location.href = 'index.html';
     })
     .catch((error) => {
       var errorCode = error.code;
