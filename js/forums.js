@@ -15,6 +15,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 // save the data
+var num = 0;
 $(".postcontent input[type='submit']").click(function (e) {
   e.preventDefault();
 
@@ -24,7 +25,9 @@ $(".postcontent input[type='submit']").click(function (e) {
   inputdata.forEach((data) => {
     inputJson[data.name] = data.value;
   });
+  inputJson["number"]= num;
   inputJson["commentlist"]=[];
+  num = 0;
   firebase.firestore().collection('postCollection').add(inputJson);
 });
 // update the result in table
@@ -41,14 +44,19 @@ firebase
 
     var i = 1;
     querySnapshot.forEach((doc) => {
-      console.log(doc.id);
-      console.log(doc.data().postBody);
-      console.log(doc.data().commentlist);
+      // console.log(doc.id);
+      // console.log(doc.data().postBody);
+      // console.log(doc.data().commentlist);
     
       id[i - 1] = doc.id;
+    //console.log(postcomment);
+     console.log(num);
+    if(postcomment[doc.data().number] == null){
+    postcomment[doc.data().number]=(doc.data().commentlist);
+    console.log(postcomment);
+    }
+    // console.log(postcomment);
       
-      postcomment.push(doc.data().commentlist);
-      console.log(postcomment);
       
  
 
@@ -62,7 +70,7 @@ firebase
       document.getElementById("main-comment"+i+"").style.visibility = "visible";
       document.getElementById("message"+i+"").style.visibility = "visible";
  
-      console.log("comment"+i+"");
+      
       var final = document.getElementById('message' + i + '');
       final.innerHTML = postInformation;
       var commentInformation ="";
@@ -72,426 +80,604 @@ firebase
       final = document.getElementById('main-comment' + i + '');
       final.innerHTML = commentInformation;
       i++;
+      num += 1;
     });
   });
-
+  
 $(".comment-form1 input[type='button']").click(function (e) {
   e.preventDefault();
 
   // get the value of the form using serializeArray method
-  var inputdata = $('.comment-form1').serializeArray();
-  var inputJson = {};
-  inputdata.forEach((data) => {
-    inputJson[data.name] = data.value;
+  var doc1 = id[0];
+  var docref = firebase.firestore().collection('postCollection').doc(doc1);
+  var temp = 0;
+  docref.get().then((doc) => {
+   
+    var inputdata = [];
+    inputdata = $('.comment-form1').serializeArray();
+    
+    console.log(inputdata);
+    var inputJson = {};
+    inputdata.forEach((data) => {
+      inputJson[data.name] = data.value;
+    });
+    //console.log(inputJson);
+    console.log(temp);
+    temp = (doc.data().number);
+    console.log(temp);
+   // console.log(temp);
+   var thevalue = inputJson["commentdata"];
+   //console.log(thevalue);
+    //console.log(postcomment);
+    console.log(postcomment[temp]);
+    postcomment[temp].push(thevalue);
+    console.log(postcomment[temp]);
+    //console.log(postcomment);
+    var inputJson={commentlist:postcomment[temp]};
+    
+    console.log(inputJson);
+  
+  
+    firebase.firestore().collection('postCollection').doc(doc1).update(inputJson);
   });
   
-  var thevalue = inputJson["commentdata"];
   
-  postcomment[0].push(thevalue);
-  var inputJson={commentlist:postcomment[0]};
   
-  console.log(inputJson);
-  var doc = id[0];
-  firebase.firestore().collection('postCollection').doc(doc).update(inputJson);
+  num = 0;
   
 });
 $(".comment-form2 input[type='button']").click(function (e) {
   e.preventDefault();
 
   // get the value of the form using serializeArray method
-  var inputdata = $('.comment-form2').serializeArray();
-  var inputJson = {};
-  inputdata.forEach((data) => {
-    inputJson[data.name] = data.value;
-  });
+  var doc1 = id[1];
+  var docref = firebase.firestore().collection('postCollection').doc(doc1);
+  var temp = 0;
+  docref.get().then((doc) => {
+   
+    var inputdata = [];
+    inputdata = $('.comment-form2').serializeArray();
+    console.log(inputdata);
+    var inputJson = {};
+    inputdata.forEach((data) => {
+      inputJson[data.name] = data.value;
+        });
+    temp = (doc.data().number);
+    console.log(temp);
+   var thevalue = inputJson["commentdata"];
+    console.log(thevalue);
+    postcomment[temp].push(thevalue);
+    console.log(postcomment);
+    var inputJson={commentlist:postcomment[temp]};
+   console.log(inputJson);
   
-  var thevalue = inputJson["commentdata"];
   
-  postcomment[0].push(thevalue);
-  var inputJson={commentlist:postcomment[0]};
-  
-  console.log(inputJson);
-  var doc = id[1];
-  firebase.firestore().collection('postCollection').doc(doc).update(inputJson);
-  
+  firebase.firestore().collection('postCollection').doc(doc1).update(inputJson);
 });
+num = 0;
+});
+  
+  
+
 $(".comment-form3 input[type='button']").click(function (e) {
   e.preventDefault();
 
-  // get the value of the form using serializeArray method
-  var inputdata = $('.comment-form3').serializeArray();
-  var inputJson = {};
-  inputdata.forEach((data) => {
-    inputJson[data.name] = data.value;
-  });
-  
-  var thevalue = inputJson["commentdata"];
-  
-  postcomment[0].push(thevalue);
-  var inputJson={commentlist:postcomment[0]};
-  
+  var doc1 = id[2];
+  var docref = firebase.firestore().collection('postCollection').doc(doc1);
+  var temp = 0;
+  docref.get().then((doc) => {
+   
+    var inputdata = [];
+     inputdata = $('.comment-form3').serializeArray();
+    console.log(inputdata);
+    var inputJson = {};
+    inputdata.forEach((data) => {
+      inputJson[data.name] = data.value;
+    });
+    temp = (doc.data().number);
+    console.log(temp);
+   var thevalue = inputJson["commentdata"];
+    
+  postcomment[temp].push(thevalue);
+  var inputJson={commentlist:postcomment[temp]};
   console.log(inputJson);
-  var doc = id[2];
-  firebase.firestore().collection('postCollection').doc(doc).update(inputJson);
-
+  
+  
+  firebase.firestore().collection('postCollection').doc(doc1).update(inputJson);
 });
+num = 0;
+});
+
+
+
 $(".comment-form4 input[type='button']").click(function (e) {
   e.preventDefault();
 
-  // get the value of the form using serializeArray method
-  var inputdata = $('.comment-form4').serializeArray();
-  var inputJson = {};
-  inputdata.forEach((data) => {
-    inputJson[data.name] = data.value;
-  });
-  
-  var thevalue = inputJson["commentdata"];
-
-  postcomment[0].push(thevalue);
-  var inputJson={commentlist:postcomment[0]};
-
+  var doc1 = id[3];
+  var docref = firebase.firestore().collection('postCollection').doc(doc1);
+  var temp = 0;
+  docref.get().then((doc) => {
+   
+    var inputdata = [];
+     inputdata = $('.comment-form4').serializeArray();
+    console.log(inputdata);
+    var inputJson = {};
+    inputdata.forEach((data) => {
+      inputJson[data.name] = data.value;
+    });
+    temp = (doc.data().number);
+    console.log(temp);
+   var thevalue = inputJson["commentdata"];
+    
+  postcomment[temp].push(thevalue);
+  var inputJson={commentlist:postcomment[temp]};
   console.log(inputJson);
-  var doc = id[3];
-  firebase.firestore().collection('postCollection').doc(doc).update(inputJson);
-
+  
+  
+  firebase.firestore().collection('postCollection').doc(doc1).update(inputJson);
 });
+num = 0;
+});
+  
+
+
 $(".comment-form5 input[type='button']").click(function (e) {
   e.preventDefault();
 
-  // get the value of the form using serializeArray method
-  var inputdata = $('.comment-form5').serializeArray();
-  var inputJson = {};
-  inputdata.forEach((data) => {
-    inputJson[data.name] = data.value;
-  });
-  
-  var thevalue = inputJson["commentdata"];
-
-  postcomment[0].push(thevalue);
-  var inputJson={commentlist:postcomment[0]};
-
+  var doc1 = id[4];
+  var docref = firebase.firestore().collection('postCollection').doc(doc1);
+  var temp = 0;
+  docref.get().then((doc) => {
+   
+    
+    var inputdata = $('.comment-form5').serializeArray();
+    console.log(inputdata);
+    var inputJson = {};
+    inputdata.forEach((data) => {
+      inputJson[data.name] = data.value;
+    });
+    temp = (doc.data().number);
+    console.log(temp);
+   var thevalue = inputJson["commentdata"];
+    
+  postcomment[temp].push(thevalue);
+  var inputJson={commentlist:postcomment[temp]};
   console.log(inputJson);
-  var doc = id[4];
-  firebase.firestore().collection('postCollection').doc(doc).update(inputJson);
-
+ 
+  
+  firebase.firestore().collection('postCollection').doc(doc1).update(inputJson);
+  }); 
+  num = 0;
 });
+
+
 $(".comment-form6 input[type='button']").click(function (e) {
   e.preventDefault();
 
-  // get the value of the form using serializeArray method
-  var inputdata = $('.comment-form6').serializeArray();
-  var inputJson = {};
-  inputdata.forEach((data) => {
-    inputJson[data.name] = data.value;
-  });
-  
-  var thevalue = inputJson["commentdata"];
-
-  postcomment[0].push(thevalue);
-  var inputJson={commentlist:postcomment[0]};
-
+  var doc1 = id[5];
+  var docref = firebase.firestore().collection('postCollection').doc(doc1);
+  var temp = 0;
+  docref.get().then((doc) => {
+   
+    
+    var inputdata = $('.comment-form6').serializeArray();
+    console.log(inputdata);
+    var inputJson = {};
+    inputdata.forEach((data) => {
+      inputJson[data.name] = data.value;
+    });
+    temp = (doc.data().number);
+    console.log(temp);
+   var thevalue = inputJson["commentdata"];
+    
+  postcomment[temp].push(thevalue);
+  var inputJson={commentlist:postcomment[temp]};
   console.log(inputJson);
-  var doc = id[5];
-  firebase.firestore().collection('postCollection').doc(doc).update(inputJson);
-
+  
+  
+  firebase.firestore().collection('postCollection').doc(doc1).update(inputJson);
+});
+num = 0;
 });
 $(".comment-form7 input[type='button']").click(function (e) {
   e.preventDefault();
 
-  // get the value of the form using serializeArray method
-  var inputdata = $('.comment-form7').serializeArray();
-  var inputJson = {};
-  inputdata.forEach((data) => {
-    inputJson[data.name] = data.value;
-  });
-  
-  var thevalue = inputJson["commentdata"];
-
-  postcomment[0].push(thevalue);
-  var inputJson={commentlist:postcomment[0]};
-
+  var doc1 = id[6];
+  var docref = firebase.firestore().collection('postCollection').doc(doc1);
+  var temp = 0;
+  docref.get().then((doc) => {
+   
+    
+    var inputdata = $('.comment-form7').serializeArray();
+    console.log(inputdata);
+    var inputJson = {};
+    inputdata.forEach((data) => {
+      inputJson[data.name] = data.value;
+    });
+    temp = (doc.data().number);
+    console.log(temp);
+   var thevalue = inputJson["commentdata"];
+    
+  postcomment[temp].push(thevalue);
+  var inputJson={commentlist:postcomment[temp]};
   console.log(inputJson);
-  var doc = id[6];
-  firebase.firestore().collection('postCollection').doc(doc).update(inputJson);
-
+  
+  
+  firebase.firestore().collection('postCollection').doc(doc1).update(inputJson);
+});
 });
 $(".comment-form8 input[type='button']").click(function (e) {
   e.preventDefault();
 
-  // get the value of the form using serializeArray method
-  var inputdata = $('.comment-form8').serializeArray();
-  var inputJson = {};
-  inputdata.forEach((data) => {
-    inputJson[data.name] = data.value;
-  });
-  
-  var thevalue = inputJson["commentdata"];
-
-  postcomment[0].push(thevalue);
-  var inputJson={commentlist:postcomment[0]};
-
+  var doc1 = id[7];
+  var docref = firebase.firestore().collection('postCollection').doc(doc1);
+  var temp = 0;
+  docref.get().then((doc) => {
+   
+    
+    var inputdata = $('.comment-form8').serializeArray();
+    console.log(inputdata);
+    var inputJson = {};
+    inputdata.forEach((data) => {
+      inputJson[data.name] = data.value;
+    });
+    temp = (doc.data().number);
+    console.log(temp);
+   var thevalue = inputJson["commentdata"];
+    
+  postcomment[temp].push(thevalue);
+  var inputJson={commentlist:postcomment[temp]};
   console.log(inputJson);
-  var doc = id[7];
-  firebase.firestore().collection('postCollection').doc(doc).update(inputJson);
-
+  
+  
+  firebase.firestore().collection('postCollection').doc(doc1).update(inputJson);
+});
 });
 $(".comment-form9 input[type='button']").click(function (e) {
   e.preventDefault();
 
-  // get the value of the form using serializeArray method
-  var inputdata = $('.comment-form9').serializeArray();
-  var inputJson = {};
-  inputdata.forEach((data) => {
-    inputJson[data.name] = data.value;
-  });
-  
-  var thevalue = inputJson["commentdata"];
-
-  postcomment[0].push(thevalue);
-  var inputJson={commentlist:postcomment[0]};
-
+  var doc1 = id[8];
+  var docref = firebase.firestore().collection('postCollection').doc(doc1);
+  var temp = 0;
+  docref.get().then((doc) => {
+   
+    
+    var inputdata = $('.comment-form9').serializeArray();
+    console.log(inputdata);
+    var inputJson = {};
+    inputdata.forEach((data) => {
+      inputJson[data.name] = data.value;
+    });
+    temp = (doc.data().number);
+    console.log(temp);
+   var thevalue = inputJson["commentdata"];
+    
+  postcomment[temp].push(thevalue);
+  var inputJson={commentlist:postcomment[temp]};
   console.log(inputJson);
-  var doc = id[8];
-  firebase.firestore().collection('postCollection').doc(doc).update(inputJson);
-
+  
+  
+  firebase.firestore().collection('postCollection').doc(doc1).update(inputJson);
+});
 });
 $(".comment-form10 input[type='button']").click(function (e) {
   e.preventDefault();
-
-  // get the value of the form using serializeArray method
-  var inputdata = $('.comment-form10').serializeArray();
-  var inputJson = {};
-  inputdata.forEach((data) => {
-    inputJson[data.name] = data.value;
-  });
-  
-  var thevalue = inputJson["commentdata"];
-
-  postcomment[0].push(thevalue);
-  var inputJson={commentlist:postcomment[0]};
-
+  var doc1 = id[9];
+  var docref = firebase.firestore().collection('postCollection').doc(doc1);
+  var temp = 0;
+  docref.get().then((doc) => {
+   
+    
+    var inputdata = $('.comment-form10').serializeArray();
+    console.log(inputdata);
+    var inputJson = {};
+    inputdata.forEach((data) => {
+      inputJson[data.name] = data.value;
+    });
+    temp = (doc.data().number);
+    console.log(temp);
+   var thevalue = inputJson["commentdata"];
+    
+  postcomment[temp].push(thevalue);
+  var inputJson={commentlist:postcomment[temp]};
   console.log(inputJson);
-  var doc = id[9];
-  firebase.firestore().collection('postCollection').doc(doc).update(inputJson);
-
+  
+  
+  firebase.firestore().collection('postCollection').doc(doc1).update(inputJson);
+});
 });
 $(".comment-form11 input[type='button']").click(function (e) {
   e.preventDefault();
 
-  // get the value of the form using serializeArray method
-  var inputdata = $('.comment-form11').serializeArray();
-  var inputJson = {};
-  inputdata.forEach((data) => {
-    inputJson[data.name] = data.value;
-  });
-  
-  var thevalue = inputJson["commentdata"];
-
-  postcomment[0].push(thevalue);
-  var inputJson={commentlist:postcomment[0]};
-
+  var doc1 = id[10];
+  var docref = firebase.firestore().collection('postCollection').doc(doc1);
+  var temp = 0;
+  docref.get().then((doc) => {
+   
+    
+    var inputdata = $('.comment-form11').serializeArray();
+    console.log(inputdata);
+    var inputJson = {};
+    inputdata.forEach((data) => {
+      inputJson[data.name] = data.value;
+    });
+    temp = (doc.data().number);
+    console.log(temp);
+   var thevalue = inputJson["commentdata"];
+    
+  postcomment[temp].push(thevalue);
+  var inputJson={commentlist:postcomment[temp]};
   console.log(inputJson);
-  var doc = id[10];
-  firebase.firestore().collection('postCollection').doc(doc).update(inputJson);
-
+  
+  
+  firebase.firestore().collection('postCollection').doc(doc1).update(inputJson);
+});
 });
 $(".comment-form12 input[type='button']").click(function (e) {
   e.preventDefault();
-
-  // get the value of the form using serializeArray method
-  var inputdata = $('.comment-form12').serializeArray();
-  var inputJson = {};
-  inputdata.forEach((data) => {
-    inputJson[data.name] = data.value;
-  });
-  
-  var thevalue = inputJson["commentdata"];
-
-  postcomment[0].push(thevalue);
-  var inputJson={commentlist:postcomment[0]};
-
+  var doc1 = id[11];
+  var docref = firebase.firestore().collection('postCollection').doc(doc1);
+  var temp = 0;
+  docref.get().then((doc) => {
+   
+    
+    var inputdata = $('.comment-form12').serializeArray();
+    console.log(inputdata);
+    var inputJson = {};
+    inputdata.forEach((data) => {
+      inputJson[data.name] = data.value;
+    });
+    temp = (doc.data().number);
+    console.log(temp);
+   var thevalue = inputJson["commentdata"];
+    
+  postcomment[temp].push(thevalue);
+  var inputJson={commentlist:postcomment[temp]};
   console.log(inputJson);
-  var doc = id[11];
-  firebase.firestore().collection('postCollection').doc(doc).update(inputJson);
-
+  
+  
+  firebase.firestore().collection('postCollection').doc(doc1).update(inputJson);
+});
 });
 $(".comment-form13 input[type='button']").click(function (e) {
   e.preventDefault();
 
-  // get the value of the form using serializeArray method
-  var inputdata = $('.comment-form13').serializeArray();
-  var inputJson = {};
-  inputdata.forEach((data) => {
-    inputJson[data.name] = data.value;
-  });
-  
-  var thevalue = inputJson["commentdata"];
-
-  postcomment[0].push(thevalue);
-  var inputJson={commentlist:postcomment[0]};
-
+  var doc1 = id[12];
+  var docref = firebase.firestore().collection('postCollection').doc(doc1);
+  var temp = 0;
+  docref.get().then((doc) => {
+   
+    
+    var inputdata = $('.comment-form13').serializeArray();
+    console.log(inputdata);
+    var inputJson = {};
+    inputdata.forEach((data) => {
+      inputJson[data.name] = data.value;
+    });
+    temp = (doc.data().number);
+    console.log(temp);
+   var thevalue = inputJson["commentdata"];
+    
+  postcomment[temp].push(thevalue);
+  var inputJson={commentlist:postcomment[temp]};
   console.log(inputJson);
-  var doc = id[12];
-  firebase.firestore().collection('postCollection').doc(doc).update(inputJson);
-
+  
+  
+  firebase.firestore().collection('postCollection').doc(doc1).update(inputJson);
+});
 });
 $(".comment-form14 input[type='button']").click(function (e) {
   e.preventDefault();
 
-  // get the value of the form using serializeArray method
-  var inputdata = $('.comment-form14').serializeArray();
-  var inputJson = {};
-  inputdata.forEach((data) => {
-    inputJson[data.name] = data.value;
-  });
-  
-  var thevalue = inputJson["commentdata"];
-
-  postcomment[0].push(thevalue);
-  var inputJson={commentlist:postcomment[0]};
-
+  var doc1 = id[13];
+  var docref = firebase.firestore().collection('postCollection').doc(doc1);
+  var temp = 0;
+  docref.get().then((doc) => {
+   
+    
+    var inputdata = $('.comment-form14').serializeArray();
+    console.log(inputdata);
+    var inputJson = {};
+    inputdata.forEach((data) => {
+      inputJson[data.name] = data.value;
+    });
+    temp = (doc.data().number);
+    console.log(temp);
+   var thevalue = inputJson["commentdata"];
+    
+  postcomment[temp].push(thevalue);
+  var inputJson={commentlist:postcomment[temp]};
   console.log(inputJson);
-  var doc = id[13];
-  firebase.firestore().collection('postCollection').doc(doc).update(inputJson);
-
+  
+  
+  firebase.firestore().collection('postCollection').doc(doc1).update(inputJson);
+});
 });
 $(".comment-form15 input[type='button']").click(function (e) {
   e.preventDefault();
 
-  // get the value of the form using serializeArray method
-  var inputdata = $('.comment-form15').serializeArray();
-  var inputJson = {};
-  inputdata.forEach((data) => {
-    inputJson[data.name] = data.value;
-  });
-  
-  var thevalue = inputJson["commentdata"];
-
-  postcomment[0].push(thevalue);
-  var inputJson={commentlist:postcomment[0]};
-
+  var doc1 = id[14];
+  var docref = firebase.firestore().collection('postCollection').doc(doc1);
+  var temp = 0;
+  docref.get().then((doc) => {
+   
+    
+    var inputdata = $('.comment-form15').serializeArray();
+    console.log(inputdata);
+    var inputJson = {};
+    inputdata.forEach((data) => {
+      inputJson[data.name] = data.value;
+    });
+    temp = (doc.data().number);
+    console.log(temp);
+   var thevalue = inputJson["commentdata"];
+    
+  postcomment[temp].push(thevalue);
+  var inputJson={commentlist:postcomment[temp]};
   console.log(inputJson);
-  var doc = id[14];
-  firebase.firestore().collection('postCollection').doc(doc).update(inputJson);
-
+  
+  
+  firebase.firestore().collection('postCollection').doc(doc1).update(inputJson);
+});
 });
 $(".comment-form16 input[type='button']").click(function (e) {
   e.preventDefault();
 
-  // get the value of the form using serializeArray method
-  var inputdata = $('.comment-form16').serializeArray();
-  var inputJson = {};
-  inputdata.forEach((data) => {
-    inputJson[data.name] = data.value;
-  });
-  
-  var thevalue = inputJson["commentdata"];
-
-  postcomment[0].push(thevalue);
-  var inputJson={commentlist:postcomment[0]};
-
+  var doc1 = id[15];
+  var docref = firebase.firestore().collection('postCollection').doc(doc1);
+  var temp = 0;
+  docref.get().then((doc) => {
+   
+    
+    var inputdata = $('.comment-form16').serializeArray();
+    console.log(inputdata);
+    var inputJson = {};
+    inputdata.forEach((data) => {
+      inputJson[data.name] = data.value;
+    });
+    temp = (doc.data().number);
+    console.log(temp);
+   var thevalue = inputJson["commentdata"];
+    
+  postcomment[temp].push(thevalue);
+  var inputJson={commentlist:postcomment[temp]};
   console.log(inputJson);
-  var doc = id[15];
-  firebase.firestore().collection('postCollection').doc(doc).update(inputJson);
-
+  
+  
+  firebase.firestore().collection('postCollection').doc(doc1).update(inputJson);
+});
 });
 $(".comment-form17 input[type='button']").click(function (e) {
   e.preventDefault();
 
-  // get the value of the form using serializeArray method
-  var inputdata = $('.comment-form17').serializeArray();
-  var inputJson = {};
-  inputdata.forEach((data) => {
-    inputJson[data.name] = data.value;
-  });
-  
-  var thevalue = inputJson["commentdata"];
-
-  postcomment[0].push(thevalue);
-  var inputJson={commentlist:postcomment[0]};
-
+  var doc1 = id[16];
+  var docref = firebase.firestore().collection('postCollection').doc(doc1);
+  var temp = 0;
+  docref.get().then((doc) => {
+   
+    
+    var inputdata = $('.comment-form17').serializeArray();
+    console.log(inputdata);
+    var inputJson = {};
+    inputdata.forEach((data) => {
+      inputJson[data.name] = data.value;
+    });
+    temp = (doc.data().number);
+    console.log(temp);
+   var thevalue = inputJson["commentdata"];
+    
+  postcomment[temp].push(thevalue);
+  var inputJson={commentlist:postcomment[temp]};
   console.log(inputJson);
-  var doc = id[16];
-  firebase.firestore().collection('postCollection').doc(doc).update(inputJson);
-
+  
+  
+  firebase.firestore().collection('postCollection').doc(doc1).update(inputJson);
+});
 });
 $(".comment-form18 input[type='button']").click(function (e) {
   e.preventDefault();
 
-  // get the value of the form using serializeArray method
-  var inputdata = $('.comment-form18').serializeArray();
-  var inputJson = {};
-  inputdata.forEach((data) => {
-    inputJson[data.name] = data.value;
-  });
-  
-  var thevalue = inputJson["commentdata"];
-
-  postcomment[0].push(thevalue);
-  var inputJson={commentlist:postcomment[0]};
-
+  var doc1 = id[17];
+  var docref = firebase.firestore().collection('postCollection').doc(doc1);
+  var temp = 0;
+  docref.get().then((doc) => {
+   
+    
+    var inputdata = $('.comment-form18').serializeArray();
+    console.log(inputdata);
+    var inputJson = {};
+    inputdata.forEach((data) => {
+      inputJson[data.name] = data.value;
+    });
+    temp = (doc.data().number);
+    console.log(temp);
+   var thevalue = inputJson["commentdata"];
+    
+  postcomment[temp].push(thevalue);
+  var inputJson={commentlist:postcomment[temp]};
   console.log(inputJson);
-  var doc = id[17];
-  firebase.firestore().collection('postCollection').doc(doc).update(inputJson);
-
+  
+  
+  firebase.firestore().collection('postCollection').doc(doc1).update(inputJson);
+});
 });
 $(".comment-form19 input[type='button']").click(function (e) {
   e.preventDefault();
 
-  // get the value of the form using serializeArray method
-  var inputdata = $('.comment-form19').serializeArray();
-  var inputJson = {};
-  inputdata.forEach((data) => {
-    inputJson[data.name] = data.value;
-  });
-  
-  var thevalue = inputJson["commentdata"];
-
-  postcomment[0].push(thevalue);
-  var inputJson={commentlist:postcomment[0]};
-
+  var doc1 = id[18];
+  var docref = firebase.firestore().collection('postCollection').doc(doc1);
+  var temp = 0;
+  docref.get().then((doc) => {
+   
+    
+    var inputdata = $('.comment-form19').serializeArray();
+    console.log(inputdata);
+    var inputJson = {};
+    inputdata.forEach((data) => {
+      inputJson[data.name] = data.value;
+    });
+    temp = (doc.data().number);
+    console.log(temp);
+   var thevalue = inputJson["commentdata"];
+    
+  postcomment[temp].push(thevalue);
+  var inputJson={commentlist:postcomment[temp]};
   console.log(inputJson);
-  var doc = id[18];
-  firebase.firestore().collection('postCollection').doc(doc).update(inputJson);
-
+  
+  
+  firebase.firestore().collection('postCollection').doc(doc1).update(inputJson);
+});
 });
 $(".comment-form20 input[type='button']").click(function (e) {
   e.preventDefault();
 
-  // get the value of the form using serializeArray method
-  var inputdata = $('.comment-form20').serializeArray();
-  var inputJson = {};
-  inputdata.forEach((data) => {
-    inputJson[data.name] = data.value;
-  });
-  
-  var thevalue = inputJson["commentdata"];
-
-  postcomment[0].push(thevalue);
-  var inputJson={commentlist:postcomment[0]};
-
+  var doc1 = id[19];
+  var docref = firebase.firestore().collection('postCollection').doc(doc1);
+  var temp = 0;
+  docref.get().then((doc) => {
+   
+    
+    var inputdata = $('.comment-form20').serializeArray();
+    console.log(inputdata);
+    var inputJson = {};
+    inputdata.forEach((data) => {
+      inputJson[data.name] = data.value;
+    });
+    temp = (doc.data().number);
+    console.log(temp);
+   var thevalue = inputJson["commentdata"];
+    
+  postcomment[temp].push(thevalue);
+  var inputJson={commentlist:postcomment[temp]};
   console.log(inputJson);
-  var doc = id[19];
-  firebase.firestore().collection('postCollection').doc(doc).update(inputJson);
-
+  
+  
+  firebase.firestore().collection('postCollection').doc(doc1).update(inputJson);
+});
 });
 $(".comment-form21 input[type='button']").click(function (e) {
   e.preventDefault();
-
-  // get the value of the form using serializeArray method
-  var inputdata = $('.comment-form21').serializeArray();
-  var inputJson = {};
-  inputdata.forEach((data) => {
-    inputJson[data.name] = data.value;
-  });
-  
-  var thevalue = inputJson["commentdata"];
-
-  postcomment[0].push(thevalue);
-  var inputJson={commentlist:postcomment[0]};
-
+  var doc1 = id[20];
+  var docref = firebase.firestore().collection('postCollection').doc(doc1);
+  var temp = 0;
+  docref.get().then((doc) => {
+   
+    
+    var inputdata = $('.comment-form21').serializeArray();
+    console.log(inputdata);
+    var inputJson = {};
+    inputdata.forEach((data) => {
+      inputJson[data.name] = data.value;
+    });
+    temp = (doc.data().number);
+    console.log(temp);
+   var thevalue = inputJson["commentdata"];
+    
+  postcomment[temp].push(thevalue);
+  var inputJson={commentlist:postcomment[temp]};
   console.log(inputJson);
-  var doc = id[20];
-  firebase.firestore().collection('postCollection').doc(doc).update(inputJson);
-
+  
+  
+  firebase.firestore().collection('postCollection').doc(doc1).update(inputJson);
+});
 });
