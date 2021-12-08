@@ -1,5 +1,5 @@
 
   $('#go').click(function (e) {
-    window.location.href = 'index.html';
+    window.location.href = 'tpage.html';
     console.log('hi');
   });
