@@ -82,16 +82,13 @@ firebase
       final = document.getElementById('main-comment' + i + '');
       final.innerHTML = commentInformation;
       i++;
-      
-      
-        num ++;
-     
-      
+  
+        num = doc.data().commentlist.length;
       
       console.log(postcomment[doc.data().number]);
     });
     temp = 0;
-    num = 0;
+    
   });
   
 $(".comment-form1 input[type='button']").click(function (e) {
