@@ -44,6 +44,7 @@ firebase
 
     var i = 1;
     querySnapshot.forEach((doc) => {
+      
       // console.log(doc.id);
       // console.log(doc.data().postBody);
       // console.log(doc.data().commentlist);
@@ -80,7 +81,8 @@ firebase
       final = document.getElementById('main-comment' + i + '');
       final.innerHTML = commentInformation;
       i++;
-      num += 1;
+      num = postcomment[doc.data().number] + 1;
+      
     });
   });
   
