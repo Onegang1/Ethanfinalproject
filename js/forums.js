@@ -82,8 +82,9 @@ firebase
       final = document.getElementById('main-comment' + i + '');
       final.innerHTML = commentInformation;
       i++;
-      console.log(id);
+      console.log(id.length);
         num = id.length;
+      console.log(id.length);
       console.log(postcomment[doc.data().number]);
     });
     temp = 0;
